@@ -6,7 +6,7 @@
 /*   By: sasano <shunkotkg0141@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 08:26:13 by sasano            #+#    #+#             */
-/*   Updated: 2025/01/18 23:09:14 by sasano           ###   ########.fr       */
+/*   Updated: 2025/06/05 17:45:09 by sasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,6 @@ Fixed const & Fixed::min(Fixed const & a, Fixed const & b)
     else
         return b;
 }
-
 Fixed const & Fixed::max(Fixed const & a, Fixed const & b)
 {
     if (a.toFloat() >= b.toFloat())
