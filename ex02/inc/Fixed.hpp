@@ -6,7 +6,7 @@
 /*   By: sasano <shunkotkg0141@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:54:52 by sasano            #+#    #+#             */
-/*   Updated: 2025/01/18 23:08:31 by sasano           ###   ########.fr       */
+/*   Updated: 2025/06/05 17:59:17 by sasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ class Fixed
         Fixed(float const value);
         ~Fixed();
         Fixed & operator=(Fixed const & src);
-        bool operator>(Fixed const & src);
-        bool operator<(Fixed const & src);
-        bool operator>=(Fixed const & src);
-        bool operator<=(Fixed const & src);
-        bool operator==(Fixed const & src);
-        bool operator!=(Fixed const & src);
-        Fixed operator+(Fixed const & src);
-        Fixed operator-(Fixed const & src);
-        Fixed operator*(Fixed const & src);
-        Fixed operator/(Fixed const & src);
+        bool operator>(Fixed const & src) const;
+        bool operator<(Fixed const & src) const;
+        bool operator>=(Fixed const & src) const;
+        bool operator<=(Fixed const & src) const;
+        bool operator==(Fixed const & src) const;
+        bool operator!=(Fixed const & src) const;
+        Fixed operator+(Fixed const & src) const;
+        Fixed operator-(Fixed const & src) const;
+        Fixed operator*(Fixed const & src) const;
+        Fixed operator/(Fixed const & src) const;
         Fixed &operator++(void);
         Fixed operator++(int);
         Fixed &operator--(void);

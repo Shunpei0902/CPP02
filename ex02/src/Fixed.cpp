@@ -6,7 +6,7 @@
 /*   By: sasano <shunkotkg0141@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 08:26:13 by sasano            #+#    #+#             */
-/*   Updated: 2025/06/05 17:45:09 by sasano           ###   ########.fr       */
+/*   Updated: 2025/06/05 20:51:00 by sasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,54 +54,66 @@ Fixed & Fixed::operator=(Fixed const & src)
     return *this;
 }
 
-bool Fixed::operator>(Fixed const & src)
+bool Fixed::operator>(Fixed const & src) const
 {
-    return this->toFloat() > src.toFloat();
+    return this->_value > src._value;
 }
 
-bool Fixed::operator<(Fixed const & src)
+bool Fixed::operator<(Fixed const & src) const
 {
-    return this->toFloat() < src.toFloat();
+    return this->_value < src._value;
 }
 
-bool Fixed::operator>=(Fixed const & src)
+bool Fixed::operator>=(Fixed const & src) const
 {
-    return this->toFloat() >= src.toFloat();
+    return this->_value >= src._value;
 }
 
-bool Fixed::operator<=(Fixed const & src)
+bool Fixed::operator<=(Fixed const & src) const
 {
-    return this->toFloat() <= src.toFloat();
+    return this->_value <= src._value;
 }
 
-bool Fixed::operator==(Fixed const & src)
+bool Fixed::operator==(Fixed const & src) const
 {
-    return this->toFloat() == src.toFloat();
+    return this->_value == src._value;
 }
 
-bool Fixed::operator!=(Fixed const & src)
+bool Fixed::operator!=(Fixed const & src) const
 {
-    return this->toFloat() != src.toFloat();
+    return this->_value != src._value;
 }
 
-Fixed Fixed::operator+(Fixed const & src)
+Fixed Fixed::operator+(Fixed const & src) const
 {
-    return (Fixed(this->toFloat() + src.toFloat()));
+    Fixed result;
+    result._value = this->_value + src._value;
+    return result;
 }
 
-Fixed Fixed::operator-(Fixed const & src)
+Fixed Fixed::operator-(Fixed const & src) const
 {
-    return (Fixed(this->toFloat() - src.toFloat()));
+    Fixed result;
+    result._value = this->_value - src._value;
+    return result;
 }
 
-Fixed Fixed::operator*(Fixed const & src)
+Fixed Fixed::operator*(Fixed const & src) const
 {
-    return (Fixed(this->toFloat() * src.toFloat()));
+    Fixed result;
+    result._value = (this->_value * src._value) >> Fixed::_fractionalBits;
+    return result;
 }
 
-Fixed Fixed::operator/(Fixed const & src)
+Fixed Fixed::operator/(Fixed const & src) const
 {
-    return (Fixed(this->toFloat() / src.toFloat()));
+    if (src._value == 0) {
+        std::cerr << "Error: Division by zero." << std::endl;
+        return Fixed(0);
+    }
+    Fixed result;
+    result._value = (this->_value << Fixed::_fractionalBits) / src._value;
+    return result;
 }
 
 // 前置インクリメント
@@ -162,31 +174,20 @@ std::ostream & operator<<(std::ostream & o, Fixed const & src)
 
 Fixed & Fixed::min(Fixed & a, Fixed & b)
 {
-    if (a.toFloat() <= b.toFloat())
-        return a;
-    else
-        return b;
-}
-
-Fixed & Fixed::max(Fixed & a, Fixed & b)
-{
-    if (a.toFloat() >= b.toFloat())
-        return a;
-    else
-        return b;
+    return (a < b) ? a : b;
 }
 
 Fixed const & Fixed::min(Fixed const & a, Fixed const & b)
 {
-    if (a.toFloat() <= b.toFloat())
-        return a;
-    else
-        return b;
+    return (a < b) ? a : b;
 }
+
+Fixed & Fixed::max(Fixed & a, Fixed & b)
+{
+    return (a > b) ? a : b;
+}
+
 Fixed const & Fixed::max(Fixed const & a, Fixed const & b)
 {
-    if (a.toFloat() >= b.toFloat())
-        return a;
-    else
-        return b;
+    return (a > b) ? a : b;
 }
